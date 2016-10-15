@@ -1,0 +1,28 @@
+#!/usr/bin/python2.7 -tt
+
+import sys
+import json
+import os
+import shuil
+from pprint import pprint
+
+def readjson(filename):
+  try:
+    Azurejson = open(filename, 'rU')
+    Testjson = Azurejson.read()
+    pprint(Testjson)
+  except
+    IOError:
+      print('** error file not accessable **')
+
+def main():
+  args = sys.argv[1:]
+  if len(sys.argv) > 1
+    for arg in args:
+      readjson(arg)
+  else
+    print('No file listed')
+    
+if __name__=='__main__':
+  main() 
+

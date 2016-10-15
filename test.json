@@ -1,0 +1,100 @@
+{
+  "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/Linux_Testbed01/providers/Microsoft.Compute/virtualMachines/arm-ubpass01",
+  "name": "arm-ubpass01",
+  "type": "Microsoft.Compute/virtualMachines",
+  "location": "westus",
+  "tags": {},
+  "hardwareProfile": {
+    "vmSize": "Standard_A1"
+  },
+  "storageProfile": {
+    "osDisk": {
+      "osType": "Linux",
+      "name": "clifce7fac48444ee8e-os-1474780818755",
+      "vhd": {
+        "uri": "https://linuxtestbed01diag260.blob.core.windows.net/vhds/arm-ubpass012016712154016.vhd"
+      },
+      "caching": "ReadWrite",
+      "createOption": "Attach"
+    },
+    "dataDisks": []
+  },
+  "networkProfile": {
+    "networkInterfaces": [
+      {
+        "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/Linux_Testbed01/providers/Microsoft.Network/networkInterfaces/arm-ubpass01724"
+      }
+    ]
+  },
+  "diagnosticsProfile": {
+    "bootDiagnostics": {
+      "enabled": true,
+      "storageUri": "https://clifce7fac48444ee8e14747.blob.core.windows.net/"
+    }
+  },
+  "provisioningState": "Succeeded",
+  "instanceView": {
+    "vmAgent": {
+      "vmAgentVersion": "Unknown",
+      "statuses": [
+        {
+          "code": "ProvisioningState/Unavailable",
+          "level": "Warning",
+          "displayStatus": "Not Ready",
+          "message": "VM Agent is unresponsive.",
+          "time": "2016-10-07T22:24:43.000Z"
+        }
+      ]
+    },
+    "disks": [
+      {
+        "name": "clifce7fac48444ee8e-os-1474780818755",
+        "statuses": [
+          {
+            "code": "ProvisioningState/succeeded",
+            "level": "Info",
+            "displayStatus": "Provisioning succeeded",
+            "time": "2016-10-07T01:12:11.039Z"
+          }
+        ]
+      }
+    ],
+    "extensions": [
+      {
+        "name": "enablevmaccess"
+      }
+    ],
+    "bootDiagnostics": {
+      "consoleScreenshotBlobUri": "https://clifce7fac48444ee8e14747.blob.core.windows.net/bootdiagnostics-armubpass-41cc2a48-395b-4527-89a1-31fddf05fd3e/arm-ubpass01.41cc2a48-395b-4527-89a1-31fddf05fd3e.screenshot.bmp",
+      "serialConsoleLogBlobUri": "https://clifce7fac48444ee8e14747.blob.core.windows.net/bootdiagnostics-armubpass-41cc2a48-395b-4527-89a1-31fddf05fd3e/arm-ubpass01.41cc2a48-395b-4527-89a1-31fddf05fd3e.serialconsole.log"
+    },
+    "statuses": [
+      {
+        "code": "ProvisioningState/succeeded",
+        "level": "Info",
+        "displayStatus": "Provisioning succeeded",
+        "time": "2016-10-07T01:12:11.086Z"
+      },
+      {
+        "code": "PowerState/deallocated",
+        "level": "Info",
+        "displayStatus": "VM deallocated"
+      }
+    ]
+  },
+  "vmId": "41cc2a48-395b-4527-89a1-31fddf05fd3e",
+  "resources": [
+    {
+      "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/Linux_Testbed01/providers/Microsoft.Compute/virtualMachines/arm-ubpass01/extensions/enablevmaccess",
+      "name": "enablevmaccess",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "location": "westus",
+      "publisher": "Microsoft.OSTCExtensions",
+      "virtualMachineExtensionType": "VMAccessForLinux",
+      "typeHandlerVersion": "1.4",
+      "autoUpgradeMinorVersion": true,
+      "settings": {},
+      "provisioningState": "Failed"
+    }
+  ]
+}
