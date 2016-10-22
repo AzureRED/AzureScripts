@@ -4,7 +4,7 @@ import sys, getopt
 import json
 import os
 import shutil
-from pprint import pprint
+import re
 
 def readjson(filename, localrun):
   try:
@@ -15,15 +15,24 @@ def readjson(filename, localrun):
     print("find the top level")
     print(Testjson.keys())
     VMname = Testjson['name']
-    VMinstance = Testjson['instanceView']
-    #VMlocation = Testjson['location']
-    print "name:",VMname
-    pprint(VMinstance)
+    VMlocation = Testjson['location']
+    VMsub = Testjson['id']
     
+    print "VMID", VMsub 
+    VMIDlist = list(VMsub.split("/"))
+    print VMIDlist[1],  VMIDlist[2]  # subscription
+    print VMIDlist[3],  VMIDlist[4]  # resourceGroup
+    print VMIDlist[7],  VMIDlist[8]  # VM name 
+    
+    print "name:",VMname
+    print "location:",VMlocation
+    
+  # Fail if JSON file is malformed 
   except ValueError:
     print("Could not parse JSON file.")
+    print("Make sure that the is properly formated.")
     sys.exit(3)
-
+    
 def help():
   print('# This script will convert the jason file to an azuere vm create command. #')
   print('#')

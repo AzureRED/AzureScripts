@@ -1,0 +1,127 @@
+{
+  "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/arm-multiNic/providers/Microsoft.Compute/virtualMachines/arm-multivm",
+  "name": "arm-multivm",
+  "type": "Microsoft.Compute/virtualMachines",
+  "location": "westus",
+  "tags": {},
+  "hardwareProfile": {
+    "vmSize": "Standard_DS2"
+  },
+  "storageProfile": {
+    "imageReference": {
+      "publisher": "OpenLogic",
+      "offer": "CentOS",
+      "sku": "7.2",
+      "version": "latest"
+    },
+    "osDisk": {
+      "osType": "Linux",
+      "name": "cli6fb5c84fcbd72aec-os-1473530488402",
+      "vhd": {
+        "uri": "https://clibf146cddb236b32414735.blob.core.windows.net/vhds/cli6fb5c84fcbd72aec-os-1473530488402.vhd"
+      },
+      "caching": "ReadWrite",
+      "createOption": "FromImage"
+    },
+    "dataDisks": []
+  },
+  "osProfile": {
+    "computerName": "arm-multivm",
+    "adminUsername": "rdeseke",
+    "linuxConfiguration": {
+      "disablePasswordAuthentication": true,
+      "ssh": {
+        "publicKeys": [
+          {
+            "path": "/home/rdeseke/.ssh/authorized_keys",
+            "keyData": "MIIBqzCCAZagAwIBAgIBATALBgkqhkiG9w0BAQUwADAiGA8yMDE2MDkxMDE3NTEy\r\nOFoYDzIwMjYwOTEwMTc1MTI4WjA1MQswCQYDVQQGEwJERTEWMBQGA1UECgwNZHVt\r\nbXktc3ViamVjdDEOMAwGA1UEAwwFZHVtbXkwggEgMA0GCSqGSIb3DQEBAQUAA4IB\r\nDQAwggEIAoIBAQCWYFZCX6lGhfFdhl+zEr0dH9IvIUznmLw0fVh0HyAcb3n5Rrt5\r\nEkZWvRNNsvjF6PFq49GudcE6PTTXFG2wEhOJFbQ7XSkN1e/Qy4iutxq1wJPcivVJ\r\nyVSVodtNKPqYcya61ubVvxf1IDWV3U0wC49VxiQ6PP2vxA4UggTtwKYDUdtJaATR\r\nygqEN1pRblAF79SYYH1UGaeF1S6HUrt/kfm6Z0ZACXs4g+v3QF9GxZ9KkxsclEAN\r\ngeEIlpYPmz+ZeNJ5ipu2iiFtB690FwBmqEecg5igf45PcHsFvkCDEzagRMG4YW12\r\nXB8BJDKUgqc44xZkg4dymrCBwvbcP7BzeStlAgElMAsGCSqGSIb3DQEBBQMCAAA=\r\n"
+          }
+        ]
+      }
+    },
+    "secrets": []
+  },
+  "networkProfile": {
+    "networkInterfaces": [
+      {
+        "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/arm-multiNic/providers/Microsoft.Network/networkInterfaces/arm-multinic1",
+        "primary": true
+      },
+      {
+        "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/arm-multiNic/providers/Microsoft.Network/networkInterfaces/arm-multinic2",
+        "primary": false
+      }
+    ]
+  },
+  "diagnosticsProfile": {
+    "bootDiagnostics": {
+      "enabled": true,
+      "storageUri": "https://clibf146cddb236b32414735.blob.core.windows.net/"
+    }
+  },
+  "provisioningState": "Succeeded",
+  "instanceView": {
+    "vmAgent": {
+      "vmAgentVersion": "Unknown",
+      "statuses": [
+        {
+          "code": "ProvisioningState/Unavailable",
+          "level": "Warning",
+          "displayStatus": "Not Ready",
+          "message": "VM Agent is unresponsive.",
+          "time": "2016-10-12T21:54:25.000Z"
+        }
+      ]
+    },
+    "disks": [
+      {
+        "name": "cli6fb5c84fcbd72aec-os-1473530488402",
+        "statuses": [
+          {
+            "code": "ProvisioningState/succeeded",
+            "level": "Info",
+            "displayStatus": "Provisioning succeeded",
+            "time": "2016-09-29T03:05:18.175Z"
+          }
+        ]
+      }
+    ],
+    "extensions": [
+      {
+        "name": "enablevmaccess"
+      }
+    ],
+    "bootDiagnostics": {
+      "consoleScreenshotBlobUri": "https://clibf146cddb236b32414735.blob.core.windows.net/bootdiagnostics-armmultiv-e5c4fac9-2d0e-435c-b9e3-848ac265b246/arm-multivm.e5c4fac9-2d0e-435c-b9e3-848ac265b246.screenshot.bmp",
+      "serialConsoleLogBlobUri": "https://clibf146cddb236b32414735.blob.core.windows.net/bootdiagnostics-armmultiv-e5c4fac9-2d0e-435c-b9e3-848ac265b246/arm-multivm.e5c4fac9-2d0e-435c-b9e3-848ac265b246.serialconsole.log"
+    },
+    "statuses": [
+      {
+        "code": "ProvisioningState/succeeded",
+        "level": "Info",
+        "displayStatus": "Provisioning succeeded",
+        "time": "2016-09-29T03:05:18.222Z"
+      },
+      {
+        "code": "PowerState/deallocated",
+        "level": "Info",
+        "displayStatus": "VM deallocated"
+      }
+    ]
+  },
+  "vmId": "e5c4fac9-2d0e-435c-b9e3-848ac265b246",
+  "resources": [
+    {
+      "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/arm-multiNic/providers/Microsoft.Compute/virtualMachines/arm-multivm/extensions/enablevmaccess",
+      "name": "enablevmaccess",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "location": "westus",
+      "publisher": "Microsoft.OSTCExtensions",
+      "virtualMachineExtensionType": "VMAccessForLinux",
+      "typeHandlerVersion": "1.4",
+      "autoUpgradeMinorVersion": true,
+      "settings": {},
+      "provisioningState": "Succeeded"
+    }
+  ]
+}
