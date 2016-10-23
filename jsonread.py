@@ -6,26 +6,43 @@ import os
 import shutil
 import re
 
+# A more robust way to find the keys:values
+def isinjson(jskey):
+    if jskey in Testjson.keys():
+        try:
+            return Testjson[jskey] 
+        except:
+            print "Error with Key Retrival", jskey
+            exit(4)
+    else:
+        return {}
+
 def readjson(filename, localrun):
   try:
     with open(filename) as json_file:
+      global Testjson 
       Testjson = json.load(json_file)
     
     #pprint(Testjson)
     print("find the top level")
     print(Testjson.keys())
-    VMname = Testjson['name']
-    VMlocation = Testjson['location']
-    VMsub = Testjson['id']
+
+    VMname = isinjson('name')
+    VMlocation = isinjson('location')
+    VMsub = isinjson('id')
     
+    print "VM name :",VMname
+    print "Location :",VMlocation
     print "VMID", VMsub 
-    VMIDlist = list(VMsub.split("/"))
-    print VMIDlist[1],  VMIDlist[2]  # subscription
-    print VMIDlist[3],  VMIDlist[4]  # resourceGroup
-    print VMIDlist[7],  VMIDlist[8]  # VM name 
     
-    print "name:",VMname
-    print "location:",VMlocation
+    if VMsub.find("/") <> -1:
+        VMIDlist = list(VMsub.split("/"))
+        print VMIDlist[1], ":",  VMIDlist[2]  # subscription
+        print VMIDlist[3], ":",  VMIDlist[4]  # resourceGroup
+        print VMIDlist[7], ":",  VMIDlist[8]  # VM name 
+    
+    #VMstorage = Testjson['storageProfile']
+    #VMosVHD = VMstorage[osDisk[vhd[uri]]]
     
   # Fail if JSON file is malformed 
   except ValueError:
