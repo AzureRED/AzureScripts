@@ -30,18 +30,37 @@ def readjson(filename, localrun):
     VMname = isinjson('name')
     VMlocation = isinjson('location')
     VMsub = isinjson('id')
+    VMsize = isinjson('hardwareProfile')
     
     print "VM name :",VMname
     print "Location :",VMlocation
     print "VMID", VMsub 
+    #print "Size", VMsize
+    VMsizeStr = VMsize.get('vmSize')
+    print VMsizeStr
     
     if VMsub.find("/") <> -1:
         VMIDlist = list(VMsub.split("/"))
-        print VMIDlist[1], ":",  VMIDlist[2]  # subscription
-        print VMIDlist[3], ":",  VMIDlist[4]  # resourceGroup
-        print VMIDlist[7], ":",  VMIDlist[8]  # VM name 
+        if VMIDlist[1] == "subscriptions":
+            print VMIDlist[1], ":",  VMIDlist[2]  # subscription
+            print VMIDlist[3], ":",  VMIDlist[4]  # resourceGroup
+            VMsubscription = VMIDlist[2]
+            VMresourcegrp = VMIDlist[4]
+        else:
+            print "Error reading ID line of VM " + VMname + " JSON."
+            exit(5)
+  
+    VMstorage = isinjson('storageProfile')
+    print VMstorage, "StorageProfile"
+    VMOSdisk = VMstorage.get('osDisk')
+    print VMOSdisk, "Disk"
+    print VMstorage.get('osType'), "type"
+    VMOSuri = VMOSdisk.get('vhd')
+    print VMOSuri
+
     
-    #VMstorage = Testjson['storageProfile']
+    
+    
     #VMosVHD = VMstorage[osDisk[vhd[uri]]]
     
   # Fail if JSON file is malformed 
