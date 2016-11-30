@@ -5,48 +5,26 @@ import json
 import os
 import shutil
 import re
-
-# Reading nesting Dictionaries
-def FindDict(Masterkey, Dkey):
-
-    Dvalue = None
-    print "FindDict:", Masterkey
-    for Masterkey in json:
-        print "###", Masterkey #isinjson(Masterkey)
-        #if Masterkey == (Masterkey)
-        #if isinjson()
-        #    if isinstance(Dvalue, list):
-        #        Dvalue = [ v.get(Dkey, default) if v else None for v in Dvalue]
-        #    else:
-        #        Dvalue = Dvalue.get(Dkey, default)
-        #else:
-        #    Dvalue = json.get(self, Dkey, default)
-        #if not Dvalue:
-        #    break;
-    return Dvalue
     
-def getvalue(searchdict, Dkey):
-    fields = []  # start with blank
+## recursive search in the jason file     
+def JsonValue(searchdict, Dkey):
+    answer_out = []  # start with blank
     for key, value in searchdict.iteritems():
-        if key == Dkey:
-            fields.append(value) # if found at same level
-            print "key equals:", fields.append(value) 
+        if key == Dkey: # is Dkey found at top level then stop
+            answer_out.append(value) 
             
         elif isinstance(value, dict):  # if in dictionary then parse sub-section
-            results = getvalue(value, Dkey)
-            print "results:", results
-            for result1 in results:
-                fields.append(result1)
+            results = JsonValue(value, Dkey)
+            for resultdict in results:
+                answer_out.append(resultdict)
 
         elif isinstance(value, list):  # if in list then parse sub-section
             for item in value:
-                print "Item:", item
                 if isinstance(item, dict):
-                    moreresults = getvalue(item, Dkey)
-                    print "moreresults:", moreresults
+                    moreresults = JsonValue(item, Dkey)
                     for result2 in moreresults:
-                        fields.append(result2)
-    return fields
+                        answer_out.append(result2)
+    return answer_out
     
 # A more robust way to find the keys:values
 def isinjson(tempjson, jskey):
@@ -66,8 +44,8 @@ def readjson(filename, localrun):
       Testjson = json.load(json_file)
     
     #pprint(Testjson)
-    print("find the top level")
-    print(Testjson.keys())
+    print("###### top level #######")
+    topkeys = (Testjson.keys())
 
     VMname = isinjson(Testjson, 'name')
     VMlocation = isinjson(Testjson, 'location')
@@ -76,10 +54,11 @@ def readjson(filename, localrun):
     
     print "VM name :",VMname
     print "Location :",VMlocation
-    print "VMID", VMsub 
-    #print "Size", VMsize
+    print "VMID :", VMsub 
+    print "Size", VMsize
     VMsizeStr = VMsize.get('vmSize')
     print VMsizeStr
+    
     
     if VMsub.find("/") <> -1:
         VMIDlist = list(VMsub.split("/"))
@@ -92,10 +71,17 @@ def readjson(filename, localrun):
             print "Error reading ID line of VM " + VMname + " JSON."
             exit(5)
   
+    
+    
     print "## start ##"
-    print "Output :", getvalue(Testjson, 'uri')
-    Networksub = getvalue(Testjson, 'networkProfile')
-    print "Output :", getvalue(Testjson, 'id')
+    print "^^^ Output :", JsonValue(Testjson, 'type')
+    
+    print "^^^ name :", JsonValue(Testjson, 'name')
+
+    Networksub = JsonValue(Testjson, 'networkProfile')
+    print "^VV Networksub :", Networksub
+  
+    print "^^^ uri :", JsonValue(Testjson, 'uri')
   
     #print FindDict('storageProfile', 'url')
   
