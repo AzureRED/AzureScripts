@@ -29,12 +29,21 @@ def JsonValue(searchdict, Dkey):
                         answer_out.append(result2)
     return answer_out
 
-def Curtailist(choplist)  #need to find why this needs to be  list[0] join disapears
-    if choplist.len > 1:
+def Curtailist(choplist):  #need to find why this needs to be list[0] join disapears
+    if len(choplist) > 1:
         choplist = choplist[0]
+        if len(choplist) <> 1:
+            print "Error in List", choplist
+        else:
+            return choplist 
+    elif len(choplist) == 1:    
+        return choplist
+    else:
+        print "Nothing in List", choplist
+        return choplist
     
 # A sinple abrivated help card for the script    
-def help():
+def Help():
     print('# This script will convert the jason file to an azuere vm create command. #')
     print('#')
     print('# -h help.')
@@ -43,8 +52,7 @@ def help():
     print('#')
     print('# $> jsonread.py [-r,-h] <jsonfile> ')
   
-def jsonparse(Testjson):
-     
+def Jsonparse(Testjson):
     # these calls will output lists and more then one element 
     VMname = ''.join(JsonValue(Testjson, 'name'))  # top level
     print "VM name :" , VMname
@@ -74,7 +82,8 @@ def jsonparse(Testjson):
     print "^^^ uri :", JsonValue(Testjson, 'uri')
    
     return("The Comamnd")
-  
+    
+###  -=:=-  MAIN -=:=-  ###  
 def main():
     runcommand = False  #Default to not run the vm create
     args = sys.argv[1:]
@@ -86,14 +95,14 @@ def main():
     else:
         for arg in args:
             if arg == '-h':
-                help()
+                Help()
                 sys.exit(0)
             elif arg == '-r':
                 runcommand = True  #Run the vm create
             elif os.path.exists(str(arg)):
                 try:
                     with open(arg) as json_file:
-                        VMcreate = jsonparse(json.load(json_file))
+                        VMcreate = Jsonparse(json.load(json_file))
                         if runcommand:
                             print VMcreate
                         else:
