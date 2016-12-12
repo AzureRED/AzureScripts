@@ -1,7 +1,13 @@
 #!/usr/bin/python2.7
 
-# This script will create a azure CLI command to rebuild a VM.
-# There needs to be a JSON file that was created from the VM before deletion. 
+### This script will create a azure CLI command to rebuild a VM.
+### There needs to be a JSON file that was created from the VM before deletion. 
+###
+### Writen by: Richard Eseke  2016
+###
+### Microsoft Corp.
+
+
 
 import sys, getopt
 import json
@@ -9,7 +15,10 @@ import os
 import shutil
 import re
     
-# recursive search in the jason file     
+    
+   
+### recursive search in the jason file 
+### Will search JSON dicts and lists    
 def JsonValue(searchdict, Dkey):
     answer_out = []  # start with blank
     for key, value in searchdict.iteritems():
@@ -29,40 +38,47 @@ def JsonValue(searchdict, Dkey):
                         answer_out.append(result2)
     return answer_out
 
-def Curtailist(choplist):  #need to find why this needs to be list[0] join disapears
-    if len(choplist) > 1:
+    
+    
+### Is is to print to screen    
+def MePrint(thestring)
+    if printit
+        print (thestring) #tee to stderr
+    
+    
+    
+### List Helper for JSON parsing  
+### Need to find why this needs to be list[0] join disapears
+def Curtailist(choplist):  
+    if len(choplist) > 0:
         choplist = choplist[0]
-        if len(choplist) <> 1:
-            print "Error in List", choplist
+        if not choplist:
+            print "Null List", choplist
         else:
             return choplist 
-    elif len(choplist) == 1:    
+    elif len(choplist) == 0:    
         return choplist
     else:
         print "Nothing in List", choplist
         return choplist
-    
-# A sinple abrivated help card for the script    
-def Help():
-    print('# This script will convert the jason file to an azuere vm create command. #')
-    print('#')
-    print('# -h help.')
-    print('# -r run azure vm create [...] when done.')
-    print('# By default the script will just print the command.')
-    print('#')
-    print('# $> jsonread.py [-r,-h] <jsonfile> ')
-  
+
+        
+### Parses the JSON to pull the corect data to build the azure vm create command
 def Jsonparse(Testjson):
     # these calls will output lists and more then one element 
-    VMname = ''.join(JsonValue(Testjson, 'name'))  # top level
+    VMname = ''.join(Curtailist(JsonValue(Testjson, 'name')))  # top level
     print "VM name :" , VMname
-    VMlocation = ''.join(JsonValue(Testjson, 'location'))
+   
+    VMlocation = ''.join(Curtailist(JsonValue(Testjson, 'location')))
     print "Location :", VMlocation 
-    VMsize = ''.join(JsonValue(Testjson, 'vmSize'))  #take list and gererate a string
+    
+    VMsize = ''.join(Curtailist(JsonValue(Testjson, 'vmSize')))
     print "Size: ", VMsize
-    VMsub = ''.join(JsonValue(Testjson, 'id'))
+    
+    VMsub = ''.join(Curtailist(JsonValue(Testjson, 'id')))
     print "VMID :", VMsub
    
+    # Pull apart the VMID to its' components
     if VMsub.find("/") <> -1:
         VMIDlist = list(VMsub.split("/"))
         if VMIDlist[1] == "subscriptions":
@@ -71,34 +87,51 @@ def Jsonparse(Testjson):
             VMsubscription = VMIDlist[2]
             VMresourcegrp = VMIDlist[4]
         else:
-            print "Error reading ID line of VM " + VMname + " JSON."
+            print "Error reading subscriptions ID line of VM " + VMname + " JSON."
             exit(5)
 
-    print "## start ##"
-    print "^^^ name :", JsonValue(Testjson, 'name')
-
-    Networksub = JsonValue(Testjson, 'networkProfile')
-    print "^VV Networksub :", Networksub
-    print "^^^ uri :", JsonValue(Testjson, 'uri')
-   
-    return("The Comamnd")
+    print "## start Networking ##"
+    Networkstub = JsonValue(Testjson, 'networkInterfaces')[0]
+    if not Networkstub:
+        print "Error Missing Networking Interfaces"
+        exit(7)
+    else:
+        for NIC in Networkstub:
+            print "Net len: ", len(Networkstub)
+            print "NetIDs: ", JsonValue(NIC, "id") 
     
+    # OS disk location
+    print "^^^ uri :", JsonValue(Testjson, 'uri')
+    
+    return("The Comamnd")
+   
+   
 ###  -=:=-  MAIN -=:=-  ###  
 def main():
     runcommand = False  #Default to not run the vm create
+    global printit = False
     args = sys.argv[1:]
     if len(sys.argv) == 1:
         print("# Missing arguments.")
         print('# This script will convert the jason file to an azuere vm create command. #')
-        print('# Use [-h,-r] <jsonfile>')
+        print('# Use [-h,-r,-v] <jsonfile>')
         sys.exit(2)
     else:
         for arg in args:
-            if arg == '-h':
-                Help()
+            if arg == '-h':  #Help option, A sinple abrivated help card for the script    
+                print('# This script will convert the jason file to an azuere vm create command. #')
+                print('#')
+                print('# -h help.')
+                print('# -r run azure vm create [...] when done.')
+                print('# -v verbose output.')
+                print('# By default the script will just print the command.')
+                print('#')
+                print('# $> jsonread.py [-r,-h] <jsonfile> ')
                 sys.exit(0)
-            elif arg == '-r':
-                runcommand = True  #Run the vm create
+            elif arg == '-r':   #Run the vm create
+                runcommand = True 
+            elif arg == "-v":   #Print out all data from script
+                printit = True
             elif os.path.exists(str(arg)):
                 try:
                     with open(arg) as json_file:
@@ -112,7 +145,7 @@ def main():
                         print("Make sure that the is properly formated.")
                         sys.exit(3)                       
             else:
-                print('** Error in Command!! **')
+                print('** Error parsing Command!! **')
                 sys.exit(1)
     
 if __name__=='__main__':
