@@ -41,8 +41,8 @@ def JsonValue(searchdict, Dkey):
     
     
 ### Is is to print to screen    
-def MePrint(thestring)
-    if printit
+def MePrint(thestring):
+    if printit:
         print (thestring) #tee to stderr
     
     
@@ -91,17 +91,26 @@ def Jsonparse(Testjson):
             exit(5)
 
     print "## start Networking ##"
-    Networkstub = JsonValue(Testjson, 'networkInterfaces')[0]
+    Networkstub = JsonValue(Testjson, 'networkInterfaces')[0]  # pull the list from the JSON
     if not Networkstub:
         print "Error Missing Networking Interfaces"
         exit(7)
     else:
+        NICliststr = ''        
         for NIC in Networkstub:
-            print "Net len: ", len(Networkstub)
-            print "NetIDs: ", JsonValue(NIC, "id") 
+            VMnetlist = ''.join(JsonValue(NIC, "id")) 
+            print "VMnetlist :", VMnetlist
+            if VMnetlist.find("/") <> -1:
+                VMnetlist = list(VMnetlist.split("/"))
+                if VMnetlist[7] == "networkInterfaces":  #is the networkInterface there?
+                    print "network NIC name :", VMnetlist[8] 
+                    NICliststr = NICliststr + VMnetlist[8] + ', '
+        NICliststr = NICliststr[:-2]  # Take the last comma off the end 
+        print "NIC list String :", NICliststr
     
     # OS disk location
-    print "^^^ uri :", JsonValue(Testjson, 'uri')
+    VMosdisk = ''.join(JsonValue(Testjson, 'uri'))
+    print "URI join: ", VMosdisk
     
     return("The Comamnd")
    
@@ -109,7 +118,7 @@ def Jsonparse(Testjson):
 ###  -=:=-  MAIN -=:=-  ###  
 def main():
     runcommand = False  #Default to not run the vm create
-    global printit = False
+    # global printit == False
     args = sys.argv[1:]
     if len(sys.argv) == 1:
         print("# Missing arguments.")
@@ -119,14 +128,16 @@ def main():
     else:
         for arg in args:
             if arg == '-h':  #Help option, A sinple abrivated help card for the script    
-                print('# This script will convert the jason file to an azuere vm create command. #')
-                print('#')
-                print('# -h help.')
-                print('# -r run azure vm create [...] when done.')
-                print('# -v verbose output.')
-                print('# By default the script will just print the command.')
-                print('#')
-                print('# $> jsonread.py [-r,-h] <jsonfile> ')
+                Helpstr = """# This script will convert the jason file to an azuere vm create command. #
+#
+# -h help.
+# -r run azure vm create [...] when done.
+# -v verbose output.
+# By default the script will just print the command.
+#
+# $> jsonread.py [-r,-h] <jsonfile> 
+"""
+                print Helpstr
                 sys.exit(0)
             elif arg == '-r':   #Run the vm create
                 runcommand = True 
