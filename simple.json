@@ -1,0 +1,23 @@
+{
+  "Id" : "Computer",
+  "Name" : "Hal9000",
+  "Type" : "64x86",
+  "Tags" : {},
+  "2nd level 1" : {
+    "Disk" : {
+      "Size" : "500 GB",
+      "OS" : "Linux",
+      "Tags" : {}
+    }
+  },
+  "2nd level 2" : {
+   "3rd level" : {
+     "list:" : [
+       "value 1", "value 2", "value 3", 
+         {
+         "4th level key" : "4th level value"
+         }
+       ]
+     }
+  } 
+}
