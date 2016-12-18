@@ -3,19 +3,16 @@
 ### This script will create a azure CLI command to rebuild a VM.
 ### There needs to be a JSON file that was created from the VM before deletion. 
 ###
-### Writen by: Richard Eseke  2016
+### Writen by: Richard Eseke  2016 - 
 ###
 ### Microsoft Corp.
-
-
 
 import sys, getopt
 import json
 import os
 import shutil
 import re
-    
-    
+       
    
 ### recursive search in the jason file 
 ### Will search JSON dicts and lists    
@@ -65,6 +62,7 @@ def Curtailist(choplist):
         
 ### Parses the JSON to pull the corect data to build the azure vm create command
 def Jsonparse(Testjson):
+    VMbuild = ''  # the start of the VM create command     
     # these calls will output lists and more then one element 
     VMname = ''.join(Curtailist(JsonValue(Testjson, 'name')))  # top level
     print "VM name :" , VMname
@@ -75,9 +73,12 @@ def Jsonparse(Testjson):
     VMsize = ''.join(Curtailist(JsonValue(Testjson, 'vmSize')))
     print "Size: ", VMsize
     
+    VMostype = ''.join(Curtailist(JsonValue(Testjson, 'osType')))
+    print "VMostype :", VMostype
+    
     VMsub = ''.join(Curtailist(JsonValue(Testjson, 'id')))
     print "VMID :", VMsub
-   
+    
     # Pull apart the VMID to its' components
     if VMsub.find("/") <> -1:
         VMIDlist = list(VMsub.split("/"))
@@ -89,8 +90,8 @@ def Jsonparse(Testjson):
         else:
             print "Error reading subscriptions ID line of VM " + VMname + " JSON."
             exit(5)
-
-    print "## start Networking ##"
+    
+    print "## start Networking ## " + VMresourcegrp
     Networkstub = JsonValue(Testjson, 'networkInterfaces')[0]  # pull the list from the JSON
     if not Networkstub:
         print "Error Missing Networking Interfaces"
@@ -109,10 +110,26 @@ def Jsonparse(Testjson):
         print "NIC list String :", NICliststr
     
     # OS disk location
-    VMosdisk = ''.join(JsonValue(Testjson, 'uri'))
-    print "URI join: ", VMosdisk
+    VMosdisk = JsonValue(Testjson, 'vhd')
+    print VMosdisk
     
-    return("The Comamnd")
+    """
+    for disks in VMosdisklist:
+        print disks
+        if '-osDisk' in disks:  
+            # Pull the storage group from the OS disk location
+            print "URI join: ", disks
+            if disks.find("/") <> -1:
+               VMstoragegrp = re.split('/|\.', disks)
+               print VMstoragegrp[2]
+               VMstoragegrp = ''.join(VMstoragegrp[2])
+               VMosdisk = '"' + disks + '"'  # Add quotes to the OS disk location
+"""
+   
+    # Build the create vm command
+    VMbuild = VMbuild + "azure vm create" + " -n " + VMname + " -g " + VMresourcegrp + " -o " + "VMstoragegrp" + " -d " + "VMosdisk" + " -f " + NICliststr
+    VMbuild = VMbuild + " -l " + VMlocation + " -z " + VMsize + " -y " + VMostype
+    return VMbuild
    
    
 ###  -=:=-  MAIN -=:=-  ###  
@@ -148,9 +165,10 @@ def main():
                     with open(arg) as json_file:
                         VMcreate = Jsonparse(json.load(json_file))
                         if runcommand:
+                            print 
                             print VMcreate
                         else:
-                            print "No run"                          
+                            print "No run :: " + VMcreate
                 except ValueError:
                         print("Could not parse JSON file.")
                         print("Make sure that the is properly formated.")
