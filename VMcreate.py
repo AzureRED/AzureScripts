@@ -45,12 +45,13 @@ def MePrint(thestring):
     
     
 ### List Helper for JSON parsing  
-### Need to find why this needs to be list[0] join disapears
+### pulls the first element from a list  
 def Curtailist(choplist):  
     if len(choplist) > 0:
         choplist = choplist[0]
         if not choplist:
-            print "Null List", choplist
+            #print "Null List", choplist
+            pass
         else:
             return choplist 
     elif len(choplist) == 0:    
@@ -90,9 +91,12 @@ def Jsonparse(Testjson):
         else:
             print "Error reading subscriptions ID line of VM " + VMname + " JSON."
             exit(5)
+    else:
+        print "Error reading ID line of VM.  Missing delimiters. " + VMname + " JSON."
+        exit(5)      
     
     print "## start Networking ## " + VMresourcegrp
-    Networkstub = JsonValue(Testjson, 'networkInterfaces')[0]  # pull the list from the JSON
+    Networkstub = Curtailist(JsonValue(Testjson, 'networkInterfaces'))  
     if not Networkstub:
         print "Error Missing Networking Interfaces"
         exit(7)
@@ -108,27 +112,40 @@ def Jsonparse(Testjson):
                     NICliststr = NICliststr + VMnetlist[8] + ', '
         NICliststr = NICliststr[:-2]  # Take the last comma off the end 
         print "NIC list String :", NICliststr
-    
+     
     # OS disk location
-    VMosdisk = JsonValue(Testjson, 'vhd')
-    print VMosdisk
+    VMosdiskset = Curtailist(JsonValue(Testjson, 'osDisk'))
+    VMosdisk = ''.join(JsonValue(VMosdiskset, 'uri')) 
+    VMosdisk = '"' + VMosdisk + '"'
+    if VMosdisk.find("/") <> -1:
+        VMstoragegrp = re.split('/|\.', VMosdisk)
+        print "Storage Group : ", VMstoragegrp[2]
+        VMstoragegrp = ''.join(VMstoragegrp[2])
     
-    """
-    for disks in VMosdisklist:
-        print disks
-        if '-osDisk' in disks:  
-            # Pull the storage group from the OS disk location
-            print "URI join: ", disks
-            if disks.find("/") <> -1:
-               VMstoragegrp = re.split('/|\.', disks)
-               print VMstoragegrp[2]
-               VMstoragegrp = ''.join(VMstoragegrp[2])
-               VMosdisk = '"' + disks + '"'  # Add quotes to the OS disk location
-"""
-   
+    # Datadisk, possible list
+    dataDisks = Curtailist(JsonValue(Testjson, 'dataDisks'))[0]
+    if dataDisks:
+        print "DATA DISKS FOUND: ", dataDisks
+        Datalist = '"'
+        for DDisks in dataDisks:
+            DataDStr = ''.join(JsonValue(dataDisks, "uri")) 
+            print "Datadisk :", DataDStr
+            Datalist = Datalist + DataDStr + '"' + ", "
+        Datalist = Datalist[:-2] # Take the last comma off the end 
+        print "Datalist :", Datalist
+        
     # Build the create vm command
-    VMbuild = VMbuild + "azure vm create" + " -n " + VMname + " -g " + VMresourcegrp + " -o " + "VMstoragegrp" + " -d " + "VMosdisk" + " -f " + NICliststr
-    VMbuild = VMbuild + " -l " + VMlocation + " -z " + VMsize + " -y " + VMostype
+    VMbuild = VMbuild + "azure vm create" + " -n " + VMname + " -g " + VMresourcegrp + " -o " + VMstoragegrp + " -d " + VMosdisk 
+    if NICliststr.find(',') <> -1:
+        VMbuild = VMbuild + " -N " + NICliststr  # Multipule NICs
+    else:   
+        VMbuild = VMbuild + " -f " + NICliststr  # Single NIC
+        
+    if dataDisks:
+        VMbuild = VMbuild + " -Y" + Datalist
+        
+    VMbuild = VMbuild + " -l " + VMlocation + " -z " + VMsize + " -y " + VMostype      
+    
     return VMbuild
    
    
