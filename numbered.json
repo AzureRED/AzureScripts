@@ -1,0 +1,100 @@
+{
+  "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/Linux_Testbed01/providers/Microsoft.Compute/virtualMachines/arm-ubpass01",
+  "name": "arm-ubpass01",
+  "type": "Microsoft.Compute/virtualMachines",
+  "location": "westus",
+  "tags": {},
+  "hardwareProfile": {
+    "vmSize": "Standard_A1"
+  },
+  "storageProfile": {
+    "osDisk": {
+      "osType": "2 stor Linux",
+      "name": "2 stor clifce7fac48444ee8e-os-1474780818755",
+      "vhd": {
+        "uri": "3 stor https://arm-ubpass012016712154016.vhd"
+      },
+      "caching": "ReadWrite",
+      "createOption": "Attach"
+    },
+    "dataDisks": []
+  },
+  "networkProfile": {
+    "networkInterfaces": [
+      {
+        "id": "2 net networkInterfaces/arm-ubpass01724"
+      }
+    ]
+  },
+  "diagnosticsProfile": {
+    "bootDiagnostics": {
+      "enabled": true,
+      "storageUri": "2 diag https://clifce7fac48444ee8e14747.blob.core.windows.net/"
+    }
+  },
+  "provisioningState": "Succeeded",
+  "instanceView": {
+    "vmAgent": {
+      "vmAgentVersion": "2 agent Unknown",
+      "statuses": [
+        {
+          "code": "3 code ProvisioningState/Unavailable",
+          "level": "3 code Warning",
+          "displayStatus": "3 code Not Ready",
+          "message": "3 code VM Agent is unresponsive.",
+          "time": "3 code 2016-10-07T22:24:43.000Z"
+        }
+      ]
+    },
+    "disks": [
+      {
+        "name": "2 disk clifce7fac48444ee8e-os-1474780818755",
+        "statuses": [
+          {
+            "code": "3 disk stat ProvisioningState/succeeded",
+            "level": "3 disk stat Info",
+            "displayStatus": "3 disk stat Provisioning succeeded",
+            "time": "3 disk stat 2016-10-07T01:12:11.039Z"
+          }
+        ]
+      }
+    ],
+    "extensions": [
+      {
+        "name": "2 ext enablevmaccess"
+      }
+    ],
+    "bootDiagnostics": {
+      "consoleScreenshotBlobUri": "2 boot diag https://27-89a1-31fddf05fd3e.screenshot.bmp",
+      "serialConsoleLogBlobUri": "2 boot diag https://cli4527-89a1-31fddf05fd3e.serialconsole.log"
+    },
+    "statuses": [
+      {
+        "code": "2-1 stat ProvisioningState/succeeded",
+        "level": "2-1 stat Info",
+        "displayStatus": "2-1 stat Provisioning succeeded",
+        "time": "2-1 stat 2016-10-07T01:12:11.086Z"
+      },
+      {
+        "code": "2-2 stat PowerState/deallocated",
+        "level": "2-2 stat Info",
+        "displayStatus": "2-2 stat VM deallocated"
+      }
+    ]
+  },
+  "vmId": "41cc2a48-395b-4527-89a1-31fddf05fd3e",
+  "resources": [
+    {
+      "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/Linux_Testbed01/providers/Microsoft.Compute/virtualMachines/arm-ubpass01/extensions/enablevmaccess",
+      "name": "enablevmaccess",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "location": "westus",
+      "publisher": "Microsoft.OSTCExtensions",
+      "virtualMachineExtensionType": "VMAccessForLinux",
+      "typeHandlerVersion": "1.4",
+      "autoUpgradeMinorVersion": true,
+      "settings": {},
+      "provisioningState": "Failed"
+    }
+  ]
+}
