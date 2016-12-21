@@ -47,6 +47,7 @@ def MePrint(thestring):
 ### List Helper for JSON parsing  
 ### pulls the first element from a list  
 def Curtailist(choplist):  
+    print "CHOPLIST ", choplist
     if len(choplist) > 0:
         choplist = choplist[0]
         if not choplist:
@@ -54,7 +55,8 @@ def Curtailist(choplist):
             pass
         else:
             return choplist 
-    elif len(choplist) == 0:    
+    elif len(choplist) == 0:   
+        print "CHOPLIST zero", choplist
         return choplist
     else:
         print "Nothing in List", choplist
@@ -123,17 +125,25 @@ def Jsonparse(Testjson):
         VMstoragegrp = ''.join(VMstoragegrp[2])
     
     # Datadisk, possible list
-    dataDisks = Curtailist(JsonValue(Testjson, 'dataDisks'))[0]
+    dataDisks = Curtailist(JsonValue(Testjson, 'dataDisks'))
+    print "DATADISKS", dataDisks
     if dataDisks:
         print "DATA DISKS FOUND: ", dataDisks
         Datalist = '"'
         for DDisks in dataDisks:
-            DataDStr = ''.join(JsonValue(dataDisks, "uri")) 
+            DataDStr = ''.join(JsonValue(DDisks, "uri")) 
             print "Datadisk :", DataDStr
             Datalist = Datalist + DataDStr + '"' + ", "
         Datalist = Datalist[:-2] # Take the last comma off the end 
         print "Datalist :", Datalist
         
+    # Username and Passord/Key
+    AdminInfo = Curtailist(JsonValue(Testjson, "adminUsername"))
+    print "Admin : ", AdminInfo
+    if AdminInfo:
+        print "there is Admin"
+          
+     
     # Build the create vm command
     VMbuild = VMbuild + "azure vm create" + " -n " + VMname + " -g " + VMresourcegrp + " -o " + VMstoragegrp + " -d " + VMosdisk 
     if NICliststr.find(',') <> -1:
