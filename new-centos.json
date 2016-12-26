@@ -1,0 +1,124 @@
+{
+  "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/LINUX_TESTBED01/providers/Microsoft.Compute/virtualMachines/arm-cnstest01",
+  "name": "arm-cnstest01",
+  "type": "Microsoft.Compute/virtualMachines",
+  "location": "westus",
+  "tags": {},
+  "hardwareProfile": {
+    "vmSize": "Standard_A1"
+  },
+  "storageProfile": {
+    "osDisk": {
+      "osType": "Linux",
+      "name": "arm-cnostest01",
+      "vhd": {
+        "uri": "https://linuxtestbed01diag260.blob.core.windows.net/vhds/arm-costest01201671192140.vhd"
+      },
+      "caching": "ReadWrite",
+      "createOption": "Attach"
+    },
+    "dataDisks": [
+      {
+        "lun": 0,
+        "name": "arm-costest01201672074951",
+        "vhd": {
+          "uri": "https://centosgroup156.blob.core.windows.net/vhds/arm-costest01201672074951.vhd"
+        },
+        "caching": "None",
+        "createOption": "Attach"
+      },
+      {
+        "lun": 1,
+        "name": "arm-cnstest01-New_disk2",
+        "vhd": {
+          "uri": "https://linuxtestbed01diag260.blob.core.windows.net/vhds/arm-cnstest01-New_disk2.vhd"
+        },
+        "caching": "None",
+        "createOption": "Empty",
+        "diskSizeGB": 200
+      }
+    ]
+  },
+  "networkProfile": {
+    "networkInterfaces": [
+      {
+        "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/Linux_Testbed01/providers/Microsoft.Network/networkInterfaces/arm-costest01523"
+      }
+    ]
+  },
+  "diagnosticsProfile": {
+    "bootDiagnostics": {
+      "enabled": true,
+      "storageUri": "https://linuxtestbed01diag260.blob.core.windows.net/"
+    }
+  },
+  "provisioningState": "Succeeded",
+  "instanceView": {
+    "vmAgent": {
+      "vmAgentVersion": "WALinuxAgent-2.0.18",
+      "extensionHandlers": [],
+      "statuses": [
+        {
+          "code": "ProvisioningState/succeeded",
+          "level": "Info",
+          "displayStatus": "Ready",
+          "message": "GuestAgent is running and accepting new configurations.",
+          "time": "2016-12-26T02:43:40.000Z"
+        }
+      ]
+    },
+    "disks": [
+      {
+        "name": "arm-cnostest01",
+        "statuses": [
+          {
+            "code": "ProvisioningState/succeeded",
+            "level": "Info",
+            "displayStatus": "Provisioning succeeded",
+            "time": "2016-12-26T02:23:37.888Z"
+          }
+        ]
+      },
+      {
+        "name": "arm-costest01201672074951",
+        "statuses": [
+          {
+            "code": "ProvisioningState/succeeded",
+            "level": "Info",
+            "displayStatus": "Provisioning succeeded",
+            "time": "2016-12-26T02:23:37.888Z"
+          }
+        ]
+      },
+      {
+        "name": "arm-cnstest01-New_disk2",
+        "statuses": [
+          {
+            "code": "ProvisioningState/succeeded",
+            "level": "Info",
+            "displayStatus": "Provisioning succeeded",
+            "time": "2016-12-26T02:23:38.075Z"
+          }
+        ]
+      }
+    ],
+    "bootDiagnostics": {
+      "consoleScreenshotBlobUri": "https://linuxtestbed01diag260.blob.core.windows.net/bootdiagnostics-armcnstes-7892a881-92c9-452c-b346-0c4bb0bd25f4/arm-cnstest01.7892a881-92c9-452c-b346-0c4bb0bd25f4.screenshot.bmp",
+      "serialConsoleLogBlobUri": "https://linuxtestbed01diag260.blob.core.windows.net/bootdiagnostics-armcnstes-7892a881-92c9-452c-b346-0c4bb0bd25f4/arm-cnstest01.7892a881-92c9-452c-b346-0c4bb0bd25f4.serialconsole.log"
+    },
+    "statuses": [
+      {
+        "code": "ProvisioningState/succeeded",
+        "level": "Info",
+        "displayStatus": "Provisioning succeeded",
+        "time": "2016-12-26T02:24:28.674Z"
+      },
+      {
+        "code": "PowerState/running",
+        "level": "Info",
+        "displayStatus": "VM running"
+      }
+    ]
+  },
+  "vmId": "7892a881-92c9-452c-b346-0c4bb0bd25f4"
+}
