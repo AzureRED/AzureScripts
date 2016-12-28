@@ -118,31 +118,41 @@ def Jsonparse(Testjson):
     # OS disk location
     VMosdiskset = Curtailist(JsonValue(Testjson, 'osDisk'))
     VMosdisk = ''.join(JsonValue(VMosdiskset, 'uri')) 
-    VMosdisk = '"' + VMosdisk + '"'
-    if VMosdisk.find("/") <> -1:
-        VMstoragegrp = re.split('/|\.', VMosdisk)
-        print "Storage Group : ", VMstoragegrp[2]
-        VMstoragegrp = ''.join(VMstoragegrp[2])
+    if VMosdisk:
+        VMosdisk = '"' + VMosdisk + '"'
+        if VMosdisk.find("/") <> -1:
+            VMstoragegrp = re.split('/|\.', VMosdisk)
+            print "Storage Group : ", VMstoragegrp[2]
+            VMstoragegrp = ''.join(VMstoragegrp[2])
+    else:
+        print "MISSING os DISK, HALTING."
+        exit(8)
     
     # Datadisk, possible list
     dataDisks = Curtailist(JsonValue(Testjson, 'dataDisks'))
     print "DATADISKS", dataDisks
     if dataDisks:
         print "DATA DISKS FOUND: ", dataDisks
-        Datalist = '"'
+        Datalist = ''
         for DDisks in dataDisks:
-            DataDStr = ''.join(JsonValue(DDisks, "uri")) 
+            DataDStr = '"' + ''.join(JsonValue(DDisks, "uri")) 
             print "Datadisk :", DataDStr
             Datalist = Datalist + DataDStr + '"' + ", "
-        Datalist = Datalist[:-2] # Take the last comma off the end 
+        Datalist = Datalist[:-2] # Take the last comma off the end
         print "Datalist :", Datalist
         
     # Username and Passord/Key
-    AdminInfo = Curtailist(JsonValue(Testjson, "adminUsername"))
-    print "Admin : ", AdminInfo
-    if AdminInfo:
-        print "there is Admin"
-          
+    VMusername = Curtailist(JsonValue(Testjson, "adminUsername"))
+    if VMusername:
+        print "there is Admin", VMusername 
+        VMpublickey = Curtailist(JsonValue(Testjson, "publicKeys"))
+        if VMpublickey:
+            print "There be Public Key.", VMpublickey
+
+            print VMpublickey[0]
+
+      
+            
      
     # Build the create vm command
     VMbuild = VMbuild + "azure vm create" + " -n " + VMname + " -g " + VMresourcegrp + " -o " + VMstoragegrp + " -d " + VMosdisk 
@@ -152,7 +162,7 @@ def Jsonparse(Testjson):
         VMbuild = VMbuild + " -f " + NICliststr  # Single NIC
         
     if dataDisks:
-        VMbuild = VMbuild + " -Y" + Datalist
+        VMbuild = VMbuild + " -Y " + Datalist
         
     VMbuild = VMbuild + " -l " + VMlocation + " -z " + VMsize + " -y " + VMostype      
     
