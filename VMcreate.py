@@ -35,13 +35,11 @@ def JsonValue(searchdict, Dkey):
                         answer_out.append(result2)
     return answer_out
 
-    
-    
+     
 ### Is is to print to screen    
 def MePrint(thestring):
     if printit:
         print (thestring) #tee to stderr
-    
     
     
 ### List Helper for JSON parsing  
@@ -68,17 +66,13 @@ def Jsonparse(Testjson):
     VMbuild = ''  # the start of the VM create command     
     # these calls will output lists and more then one element 
     VMname = ''.join(Curtailist(JsonValue(Testjson, 'name')))  # top level
-    print "VM name :" , VMname
-   
+    print "VM name :" , VMname 
     VMlocation = ''.join(Curtailist(JsonValue(Testjson, 'location')))
-    print "Location :", VMlocation 
-    
+    print "Location :", VMlocation   
     VMsize = ''.join(Curtailist(JsonValue(Testjson, 'vmSize')))
-    print "Size: ", VMsize
-    
+    print "Size: ", VMsize    
     VMostype = ''.join(Curtailist(JsonValue(Testjson, 'osType')))
     print "VMostype :", VMostype
-    
     VMsub = ''.join(Curtailist(JsonValue(Testjson, 'id')))
     print "VMID :", VMsub
     
@@ -86,22 +80,19 @@ def Jsonparse(Testjson):
     if VMsub.find("/") <> -1:
         VMIDlist = list(VMsub.split("/"))
         if VMIDlist[1] == "subscriptions":
-            print VMIDlist[1], ":",  VMIDlist[2]  # subscription
+            print VMIDlist[1], ":",  VMIDlist[2]  # subscription and subscription ID
             print VMIDlist[3], ":",  VMIDlist[4]  # resourceGroup
             VMsubscription = VMIDlist[2]
             VMresourcegrp = VMIDlist[4]
         else:
-            print "Error reading subscriptions ID line of VM " + VMname + " JSON."
-            exit(5)
+            sys.exit("Error reading subscriptions ID line of VM " + VMname + " JSON.")
     else:
-        print "Error reading ID line of VM.  Missing delimiters. " + VMname + " JSON."
-        exit(5)      
+        sys.exit("Error reading ID line of VM.  Missing delimiters. " + VMname + " JSON.") 
     
     print "## start Networking ## " + VMresourcegrp
     Networkstub = Curtailist(JsonValue(Testjson, 'networkInterfaces'))  
     if not Networkstub:
-        print "Error Missing Networking Interfaces"
-        exit(7)
+        sys.exit("Error Missing Networking Interfaces")
     else:
         NICliststr = ''        
         for NIC in Networkstub:
@@ -125,12 +116,11 @@ def Jsonparse(Testjson):
             print "Storage Group : ", VMstoragegrp[2]
             VMstoragegrp = ''.join(VMstoragegrp[2])
     else:
-        print "MISSING os DISK, HALTING."
-        exit(8)
+        sys.exit(" Missing OS Disk, HALTING. \n")
     
     # Datadisk, possible list
     dataDisks = Curtailist(JsonValue(Testjson, 'dataDisks'))
-    print "DATADISKS", dataDisks
+    MePrint(str("DATADISKS " + dataDisks))
     if dataDisks:
         print "DATA DISKS FOUND: ", dataDisks
         Datalist = ''
@@ -141,29 +131,15 @@ def Jsonparse(Testjson):
         Datalist = Datalist[:-2] # Take the last comma off the end
         print "Datalist :", Datalist
         
-    # Username and Passord/Key
-    VMusername = Curtailist(JsonValue(Testjson, "adminUsername"))
-    if VMusername:
-        print "there is Admin", VMusername 
-        VMpublickey = Curtailist(JsonValue(Testjson, "publicKeys"))
-        if VMpublickey:
-            print "There be Public Key.", VMpublickey
-
-            print VMpublickey[0]
-
-      
-            
-     
+    # Username and Passord/Key is built in to the OS disk and not used
     # Build the create vm command
-    VMbuild = VMbuild + "azure vm create" + " -n " + VMname + " -g " + VMresourcegrp + " -o " + VMstoragegrp + " -d " + VMosdisk 
+    VMbuild = VMbuild + "azure vm create" + " -s " + VMsubscription + " -n " + VMname + " -g " + VMresourcegrp + " -o " + VMstoragegrp + " -d " + VMosdisk 
     if NICliststr.find(',') <> -1:
         VMbuild = VMbuild + " -N " + NICliststr  # Multipule NICs
     else:   
-        VMbuild = VMbuild + " -f " + NICliststr  # Single NIC
-        
-    if dataDisks:
+        VMbuild = VMbuild + " -f " + NICliststr  # Single NIC   
+    if dataDisks:   # If there is data disk(s) then add it to the command
         VMbuild = VMbuild + " -Y " + Datalist
-        
     VMbuild = VMbuild + " -l " + VMlocation + " -z " + VMsize + " -y " + VMostype      
     
     return VMbuild
@@ -171,14 +147,12 @@ def Jsonparse(Testjson):
    
 ###  -=:=-  MAIN -=:=-  ###  
 def main():
-    runcommand = False  #Default to not run the vm create
-    # global printit == False
+    global runcommand, printit
+    runcommand = False
+    printit = False  #Default to not run the vm create
     args = sys.argv[1:]
     if len(sys.argv) == 1:
-        print("# Missing arguments.")
-        print('# This script will convert the jason file to an azuere vm create command. #')
-        print('# Use [-h,-r,-v] <jsonfile>')
-        sys.exit(2)
+        sys.exit(" Missing arguments. \n This script will convert the jason file to an azuere vm create command. \n Use [-h,-r,-v] <jsonfile> \n")
     else:
         for arg in args:
             if arg == '-h':  #Help option, A sinple abrivated help card for the script    
@@ -202,17 +176,13 @@ def main():
                     with open(arg) as json_file:
                         VMcreate = Jsonparse(json.load(json_file))
                         if runcommand:
-                            print 
                             print VMcreate
                         else:
                             print "No run :: " + VMcreate
                 except ValueError:
-                        print("Could not parse JSON file.")
-                        print("Make sure that the is properly formated.")
-                        sys.exit(3)                       
+                        sys.exit(" Could not parse JSON file. \n Make sure that the JSON is properly formated.\n")                      
             else:
-                print('** Error parsing Command!! **')
-                sys.exit(1)
+                sys.exit('** Error parsing Command!! **')
     
 if __name__=='__main__':
     main() 
