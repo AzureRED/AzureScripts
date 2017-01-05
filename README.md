@@ -1,3 +1,4 @@
+
 # Python_Scripts
 A repo for more scripts dealing with OS and or cloud
 
@@ -22,6 +23,7 @@ And you will need Python 2.7.
 
 5. Run script
  a. jsoncreate.py [-r, -h] <file> 
-  i.  -r  Will run the create command(s).
-  ii. -h  A quick help box explaining the switches.
+  i.   -r  Will run the create command(s).  [Not implimented]
+  ii.  -h  A quick help box explaining the switches.
+  iii. -v  Versose printing.  Will print intermedent steps of the parsing.
  b. The script will not run the create command by default.  The -r switch is need to automaticly run create.
