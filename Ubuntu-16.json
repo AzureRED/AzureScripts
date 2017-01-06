@@ -1,0 +1,126 @@
+{
+  "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/DATA_DISK_TEST/providers/Microsoft.Compute/virtualMachines/Ubuntu-16",
+  "name": "Ubuntu-16",
+  "type": "Microsoft.Compute/virtualMachines",
+  "location": "westus",
+  "tags": {},
+  "hardwareProfile": {
+    "vmSize": "Standard_A1"
+  },
+  "storageProfile": {
+    "imageReference": {
+      "publisher": "Canonical",
+      "offer": "UbuntuServer",
+      "sku": "16.04.0-LTS",
+      "version": "latest"
+    },
+    "osDisk": {
+      "osType": "Linux",
+      "name": "Ubuntu-16",
+      "vhd": {
+        "uri": "https://baselinecentosdisks423.blob.core.windows.net/vhds/Ubuntu-1620170105204154.vhd"
+      },
+      "caching": "ReadWrite",
+      "createOption": "FromImage"
+    },
+    "dataDisks": [
+      {
+        "lun": 0,
+        "name": "Ubuntu-16-data",
+        "vhd": {
+          "uri": "https://baselinecentosdisks423.blob.core.windows.net/vhds/Ubuntu-16-data.vhd"
+        },
+        "caching": "None",
+        "createOption": "Empty",
+        "diskSizeGB": 60
+      }
+    ]
+  },
+  "osProfile": {
+    "computerName": "Ubuntu-16",
+    "adminUsername": "rdeseke",
+    "linuxConfiguration": {
+      "disablePasswordAuthentication": true,
+      "ssh": {
+        "publicKeys": [
+          {
+            "path": "/home/rdeseke/.ssh/authorized_keys",
+            "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAnvNNMdYpL6VuOeg4Nyd/xFNxqXgvOoBsf2SS81uPA6kpMe0IfSrO7pC8fdzYhEZ/GosauT1j3TMVeQ937M6y0RYmJ57Hl/jKRuOOi3cUhrC6O6EvzDy7TzTMXZ5KhZBzN8/CMfEedusTgoM11/Vmsqb2Gnsjg8aVGVEgWGzXzpayj3W0d6gcVlzzGey0NYmEd7ibUBCAPop3TyS/YpUX64NKb/wAudBv6uwTfr7bQhuYUjfsarvZ+CsF7QHyJO3LV7lCWCyX9wXF6QmNIueiHb5ra9Y14NL9qijBEh+760MCB1WNUw9UREW+O40enD3yCscG2BsC3SNwOkVzDpqecQ=="
+          }
+        ]
+      }
+    },
+    "secrets": []
+  },
+  "networkProfile": {
+    "networkInterfaces": [
+      {
+        "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/Data_disk_test/providers/Microsoft.Network/networkInterfaces/ubuntu-16451"
+      }
+    ]
+  },
+  "diagnosticsProfile": {
+    "bootDiagnostics": {
+      "enabled": true,
+      "storageUri": "https://baselinecentosdiag398.blob.core.windows.net/"
+    }
+  },
+  "provisioningState": "Succeeded",
+  "instanceView": {
+    "vmAgent": {
+      "vmAgentVersion": "2.1.3",
+      "extensionHandlers": [],
+      "statuses": [
+        {
+          "code": "ProvisioningState/succeeded",
+          "level": "Info",
+          "displayStatus": "Ready",
+          "message": "Guest Agent is running",
+          "time": "2017-01-06T05:22:58.000Z"
+        }
+      ]
+    },
+    "disks": [
+      {
+        "name": "Ubuntu-16",
+        "statuses": [
+          {
+            "code": "ProvisioningState/succeeded",
+            "level": "Info",
+            "displayStatus": "Provisioning succeeded",
+            "time": "2017-01-06T04:46:24.485Z"
+          }
+        ]
+      },
+      {
+        "name": "Ubuntu-16-data",
+        "statuses": [
+          {
+            "code": "ProvisioningState/succeeded",
+            "level": "Info",
+            "displayStatus": "Provisioning succeeded",
+            "time": "2017-01-06T04:46:24.625Z"
+          }
+        ]
+      }
+    ],
+    "bootDiagnostics": {
+      "consoleScreenshotBlobUri": "https://baselinecentosdiag398.blob.core.windows.net/bootdiagnostics-ubuntu16-3dfedc4d-41d5-464f-bb39-9a631724571f/Ubuntu-16.3dfedc4d-41d5-464f-bb39-9a631724571f.screenshot.bmp",
+      "serialConsoleLogBlobUri": "https://baselinecentosdiag398.blob.core.windows.net/bootdiagnostics-ubuntu16-3dfedc4d-41d5-464f-bb39-9a631724571f/Ubuntu-16.3dfedc4d-41d5-464f-bb39-9a631724571f.serialconsole.log"
+    },
+    "statuses": [
+      {
+        "code": "ProvisioningState/succeeded",
+        "level": "Info",
+        "displayStatus": "Provisioning succeeded",
+        "time": "2017-01-06T04:46:48.861Z"
+      },
+      {
+        "code": "PowerState/running",
+        "level": "Info",
+        "displayStatus": "VM running"
+      }
+    ]
+  },
+  "vmId": "3dfedc4d-41d5-464f-bb39-9a631724571f"
+}

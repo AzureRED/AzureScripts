@@ -131,7 +131,8 @@ def Jsonparse(Testjson):
         
     # Username and Passord/Key is built in to the OS disk and not used
     # Build the create vm command
-    VMbuild = VMbuild + "azure vm create" + " -s " + VMsubscription + " -n " + VMname + " -g " + VMresourcegrp + " -o " + VMstoragegrp + " -d " + VMosdisk 
+    # " -o " +  VMstoragegrp (the storage group)
+    VMbuild = VMbuild + "azure vm create -v" + " -s " + VMsubscription + " -n " + VMname + " -g " + VMresourcegrp + " -d " + VMosdisk 
     if NICliststr.find(',') <> -1:
         VMbuild = VMbuild + " -N " + NICliststr  # Multipule NICs
     else:   
