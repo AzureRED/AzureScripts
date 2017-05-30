@@ -1,0 +1,82 @@
+{
+  "availabilitySet": null,
+  "diagnosticsProfile": {
+    "bootDiagnostics": {
+      "enabled": true,
+      "storageUri": "https://armcent72encryptdiag484.blob.core.windows.net/"
+    }
+  },
+  "hardwareProfile": {
+    "vmSize": "Standard_DS1_v2"
+  },
+  "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/CentOS-6.8/providers/Microsoft.Compute/virtualMachines/centoscld-68",
+  "instanceView": null,
+  "licenseType": null,
+  "location": "westus",
+  "name": "centoscld-68",
+  "networkProfile": {
+    "networkInterfaces": [
+      {
+        "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/CentOS-6.8/providers/Microsoft.Network/networkInterfaces/centoscld-68677",
+        "primary": null,
+        "resourceGroup": "CentOS-6.8"
+      }
+    ]
+  },
+  "osProfile": {
+    "adminPassword": null,
+    "adminUsername": "rdeseke",
+    "computerName": "centoscld-68",
+    "customData": null,
+    "linuxConfiguration": {
+      "disablePasswordAuthentication": true,
+      "ssh": {
+        "publicKeys": [
+          {
+            "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAnvNNMdYpL6VuOeg4Nyd/xFNxqXgvOoBsf2SS81uPA6kpMe0IfSrO7pC8fdzYhEZ/GosauT1j3TMVeQ937M6y0RYmJ57Hl/jKRuOOi3cUhrC6O6EvzDy7TzTMXZ5KhZBzN8/CMfEedusTgoM11/Vmsqb2Gnsjg8aVGVEgWGzXzpayj3W0d6gcVlzzGey0NYmEd7ibUBCAPop3TyS/YpUX64NKb/wAudBv6uwTfr7bQhuYUjfsarvZ+CsF7QHyJO3LV7lCWCyX9wXF6QmNIueiHb5ra9Y14NL9qijBEh+760MCB1WNUw9UREW+O40enD3yCscG2BsC3SNwOkVzDpqecQ==",
+            "path": "/home/rdeseke/.ssh/authorized_keys"
+          }
+        ]
+      }
+    },
+    "secrets": [],
+    "windowsConfiguration": null
+  },
+  "plan": {
+    "name": "6_8",
+    "product": "cloudera-centos-os",
+    "promotionCode": null,
+    "publisher": "cloudera"
+  },
+  "provisioningState": "Succeeded",
+  "resourceGroup": "CentOS-6.8",
+  "resources": null,
+  "storageProfile": {
+    "dataDisks": [],
+    "imageReference": {
+      "id": null,
+      "offer": "cloudera-centos-os",
+      "publisher": "cloudera",
+      "sku": "6_8",
+      "version": "latest"
+    },
+    "osDisk": {
+      "caching": "ReadWrite",
+      "createOption": "fromImage",
+      "diskSizeGb": 50,
+      "encryptionSettings": null,
+      "image": null,
+      "managedDisk": {
+        "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/CentOS-6.8/providers/Microsoft.Compute/disks/centoscld-68",
+        "resourceGroup": "CentOS-6.8",
+        "storageAccountType": "Premium_LRS"
+      },
+      "name": "centoscld-68",
+      "osType": "Linux",
+      "vhd": null
+    }
+  },
+  "tags": null,
+  "type": "Microsoft.Compute/virtualMachines",
+  "vmId": "60e511ff-e3ad-4c24-a0fb-310fd9c3a2f8"
+}

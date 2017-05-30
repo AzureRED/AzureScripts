@@ -1,0 +1,147 @@
+{
+  "availabilitySet": null,
+  "diagnosticsProfile": {
+    "bootDiagnostics": {
+      "enabled": true,
+      "storageUri": "https://armcent72encryptdiag484.blob.core.windows.net/"
+    }
+  },
+  "hardwareProfile": {
+    "vmSize": "Standard_D2_v2"
+  },
+  "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/ARM-CENT72-ENCRYPT/providers/Microsoft.Compute/virtualMachines/Cent72-encrpt",
+  "instanceView": null,
+  "licenseType": null,
+  "location": "westus",
+  "name": "Cent72-encrpt",
+  "networkProfile": {
+    "networkInterfaces": [
+      {
+        "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/ARM-cent72-encrypt/providers/Microsoft.Network/networkInterfaces/cent72-encrpt613",
+        "primary": null,
+        "resourceGroup": "ARM-cent72-encrypt"
+      }
+    ]
+  },
+  "osProfile": {
+    "adminPassword": null,
+    "adminUsername": "rdeseke",
+    "computerName": "Cent72-encrpt",
+    "customData": null,
+    "linuxConfiguration": {
+      "disablePasswordAuthentication": true,
+      "ssh": {
+        "publicKeys": [
+          {
+            "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAnvNNMdYpL6VuOeg4Nyd/xFNxqXgvOoBsf2SS81uPA6kpMe0IfSrO7pC8fdzYhEZ/GosauT1j3TMVeQ937M6y0RYmJ57Hl/jKRuOOi3cUhrC6O6EvzDy7TzTMXZ5KhZBzN8/CMfEedusTgoM11/Vmsqb2Gnsjg8aVGVEgWGzXzpayj3W0d6gcVlzzGey0NYmEd7ibUBCAPop3TyS/YpUX64NKb/wAudBv6uwTfr7bQhuYUjfsarvZ+CsF7QHyJO3LV7lCWCyX9wXF6QmNIueiHb5ra9Y14NL9qijBEh+760MCB1WNUw9UREW+O40enD3yCscG2BsC3SNwOkVzDpqecQ==",
+            "path": "/home/rdeseke/.ssh/authorized_keys"
+          }
+        ]
+      }
+    },
+    "secrets": [],
+    "windowsConfiguration": null
+  },
+  "plan": null,
+  "provisioningState": "Failed",
+  "resourceGroup": "ARM-CENT72-ENCRYPT",
+  "resources": [
+    {
+      "autoUpgradeMinorVersion": true,
+      "forceUpdateTag": null,
+      "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/ARM-CENT72-ENCRYPT/providers/Microsoft.Compute/virtualMachines/Cent72-encrpt/extensions/AzureDiskEncryptionForLinux",
+      "instanceView": null,
+      "location": "westus",
+      "name": "AzureDiskEncryptionForLinux",
+      "protectedSettings": null,
+      "provisioningState": "Updating",
+      "publisher": "Microsoft.Azure.Security",
+      "resourceGroup": "ARM-CENT72-ENCRYPT",
+      "settings": {
+        "AADClientCertThumbprint": "",
+        "AADClientID": "f5c5631a-5865-445e-9013-b2914170a4cd",
+        "EncryptionOperation": "EnableEncryption",
+        "KeyEncryptionAlgorithm": "",
+        "KeyEncryptionKeyURL": "",
+        "KeyVaultURL": "https://red-encrypt.vault.azure.net/",
+        "SequenceVersion": "",
+        "VolumeType": "Data"
+      },
+      "tags": null,
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "typeHandlerVersion": "0.1",
+      "virtualMachineExtensionType": "AzureDiskEncryptionForLinux"
+    },
+    {
+      "autoUpgradeMinorVersion": false,
+      "forceUpdateTag": null,
+      "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/ARM-CENT72-ENCRYPT/providers/Microsoft.Compute/virtualMachines/Cent72-encrpt/extensions/vmbackupextension",
+      "instanceView": null,
+      "location": "westus",
+      "name": "vmbackupextension",
+      "protectedSettings": null,
+      "provisioningState": "Failed",
+      "publisher": "Microsoft.OSTCExtensions",
+      "resourceGroup": "ARM-CENT72-ENCRYPT",
+      "settings": {
+        "commandStartTimeUTCTicks": "636205450919633663",
+        "commandToExecute": "snapshot",
+        "locale": "en-us",
+        "objectStr": "eyJiYWNrdXBNZXRhZGF0YSI6W3siS2V5Ijoidm1iYWNrdXB0YWciLCJWYWx1ZSI6IkF6dXJlRW5jNjJhNzY3ZDEtNGRhYy00OGU1LTgxYzItZGU2OTI2NDM0ZGEzIn0seyJLZXkiOiJ2bWJhY2t1cGlkZW50aXR5IiwiVmFsdWUiOiI1YzFmNDNmMS03Yjc2LTQzZmYtOGEwOC01MGFkY2Y0MDFkOTIifV19",
+        "taskId": "5c1f43f1-7b76-43ff-8a08-50adcf401d92"
+      },
+      "tags": null,
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "typeHandlerVersion": "0.1",
+      "virtualMachineExtensionType": "VMBackupForLinuxExtension"
+    }
+  ],
+  "storageProfile": {
+    "dataDisks": [
+      {
+        "caching": "None",
+        "createOption": "empty",
+        "diskSizeGb": 200,
+        "image": null,
+        "lun": 0,
+        "managedDisk": null,
+        "name": "Cent72-encrpt-data",
+        "vhd": {
+          "uri": "https://armcent72encryptdisks240.blob.core.windows.net/vhds/Cent72-encrpt-data.vhd"
+        }
+      }
+    ],
+    "imageReference": {
+      "id": null,
+      "offer": "CentOS",
+      "publisher": "OpenLogic",
+      "sku": "7.2",
+      "version": "latest"
+    },
+    "osDisk": {
+      "caching": "ReadWrite",
+      "createOption": "fromImage",
+      "diskSizeGb": null,
+      "encryptionSettings": {
+        "diskEncryptionKey": {
+          "secretUrl": "https://red-encrypt.vault.azure.net/secrets/20168cf2-84f4-45e2-829c-09298cb72cb1/c81159d4e2974f8a93e55f3160b46a15",
+          "sourceVault": {
+            "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/ARM-cent72-encrypt/providers/Microsoft.KeyVault/vaults/red-encrypt"
+          }
+        },
+        "enabled": true,
+        "keyEncryptionKey": null
+      },
+      "image": null,
+      "managedDisk": null,
+      "name": "Cent72-encrpt",
+      "osType": "Linux",
+      "vhd": {
+        "uri": "https://armcent72encryptdisks240.blob.core.windows.net/vhds/Cent72-encrpt20170114152655.vhd"
+      }
+    }
+  },
+  "tags": null,
+  "type": "Microsoft.Compute/virtualMachines",
+  "vmId": "88fa874c-2447-4222-9033-4ee8ad951a72"
+}

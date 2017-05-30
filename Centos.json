@@ -1,103 +1,79 @@
 {
-  "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/LINUX_TESTBED01/providers/Microsoft.Compute/virtualMachines/arm-cnstest01",
-  "name": "arm-cnstest01",
-  "type": "Microsoft.Compute/virtualMachines",
-  "location": "westus",
-  "tags": {},
+  "availabilitySet": null,
+  "diagnosticsProfile": null,
   "hardwareProfile": {
-    "vmSize": "Standard_A1"
+    "vmSize": "Standard_D1_v2"
   },
-  "storageProfile": {
-    "osDisk": {
-      "osType": "Linux",
-      "name": "arm-cnostest01",
-      "vhd": {
-        "uri": "https://linuxtestbed01diag260.blob.core.windows.net/vhds/arm-costest01201671192140.vhd"
-      },
-      "caching": "ReadWrite",
-      "createOption": "Attach"
-    },
-    "dataDisks": [
-      {
-        "lun": 0,
-        "name": "arm-costest01201672074951",
-        "vhd": {
-          "uri": "https://centosgroup156.blob.core.windows.net/vhds/arm-costest01201672074951.vhd"
-        },
-        "caching": "None",
-        "createOption": "Attach"
-      }
-    ]
-  },
+  "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/Workhorse1/providers/Microsoft.Compute/virtualMachines/Centos-work",
+  "instanceView": null,
+  "licenseType": null,
+  "location": "westus",
+  "name": "Centos-work",
   "networkProfile": {
     "networkInterfaces": [
       {
-        "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/Linux_Testbed01/providers/Microsoft.Network/networkInterfaces/arm-costest01523"
+        "id": "/subscriptions/ef6a4042-859d-459d-99ff-c61ebd4d7ecb/resourceGroups/Workhorse1/providers/Microsoft.Network/networkInterfaces/centos-work596",
+        "primary": true,
+        "resourceGroup": "Workhorse1"
       }
     ]
   },
-  "diagnosticsProfile": {
-    "bootDiagnostics": {
-      "enabled": true,
-      "storageUri": "https://linuxtestbed01diag260.blob.core.windows.net/"
-    }
-  },
-  "provisioningState": "Succeeded",
-  "instanceView": {
-    "vmAgent": {
-      "vmAgentVersion": "WALinuxAgent-2.0.18",
-      "extensionHandlers": [],
-      "statuses": [
-        {
-          "code": "ProvisioningState/succeeded",
-          "level": "Info",
-          "displayStatus": "Ready",
-          "message": "GuestAgent is running and accepting new configurations.",
-          "time": "2016-12-15T05:20:02.000Z"
-        }
-      ]
+  "osProfile": {
+    "adminPassword": null,
+    "adminUsername": "rdeseke",
+    "computerName": "Centos-work",
+    "customData": null,
+    "linuxConfiguration": {
+      "disablePasswordAuthentication": true,
+      "ssh": {
+        "publicKeys": [
+          {
+            "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDNTWIMv0BYardLdb1K3Vliq/ItOT7eidWG1YTGwCjuDjURO7PW+H7LWANbgfFf+LylKiOpEsXipyD0XkOYBLR3YObnMKTinnqbBNITDmkpjqvfV/C8kYhrquQ8alCdSvl3ceMeZr4WTLD0yOUIv2Prrwg/xngtW2Vm4y9TWlSoyiCrUtNSvTldMgyzrVWVhEfyVUqMy1ydU4s/tVybdEIyjaIFQCJWvzZQ+IGjBso9mPxlJN+xyQeCYWis4bXGQ9WNKjhdoWjYjvHem1obd+gV4Lfhb93bGE9G7JC6kI9f5dCs2roKosRro+YwvKiVshZFVbv/dtNK2AX9frBN6QlF",
+            "path": "/home/rdeseke/.ssh/authorized_keys"
+          }
+        ]
+      }
     },
-    "disks": [
+    "secrets": [],
+    "windowsConfiguration": null
+  },
+  "plan": null,
+  "provisioningState": "Failed",
+  "resourceGroup": "Workhorse1",
+  "resources": null,
+  "storageProfile": {
+    "dataDisks": [
       {
-        "name": "arm-cnostest01",
-        "statuses": [
-          {
-            "code": "ProvisioningState/succeeded",
-            "level": "Info",
-            "displayStatus": "Provisioning succeeded",
-            "time": "2016-10-20T03:27:09.010Z"
-          }
-        ]
-      },
-      {
-        "name": "arm-costest01201672074951",
-        "statuses": [
-          {
-            "code": "ProvisioningState/succeeded",
-            "level": "Info",
-            "displayStatus": "Provisioning succeeded",
-            "time": "2016-10-20T03:27:09.338Z"
-          }
-        ]
+        "caching": "None",
+        "createOption": "empty",
+        "diskSizeGb": 1023,
+        "image": null,
+        "lun": 0,
+        "managedDisk": null,
+        "name": "Centos-work-20170516-140051",
+        "vhd": {
+          "uri": "https://ubuntuworkstore.blob.core.windows.net/vhds/Centos-work-20170516-140051.vhd"
+        }
       }
     ],
-    "bootDiagnostics": {
-      "consoleScreenshotBlobUri": "https://linuxtestbed01diag260.blob.core.windows.net/bootdiagnostics-armcnstes-7892a881-92c9-452c-b346-0c4bb0bd25f4/arm-cnstest01.7892a881-92c9-452c-b346-0c4bb0bd25f4.screenshot.bmp",
-      "serialConsoleLogBlobUri": "https://linuxtestbed01diag260.blob.core.windows.net/bootdiagnostics-armcnstes-7892a881-92c9-452c-b346-0c4bb0bd25f4/arm-cnstest01.7892a881-92c9-452c-b346-0c4bb0bd25f4.serialconsole.log"
-    },
-    "statuses": [
-      {
-        "code": "ProvisioningState/succeeded",
-        "level": "Info",
-        "displayStatus": "Provisioning succeeded",
-        "time": "2016-10-20T03:27:38.844Z"
+    "imageReference": null,
+    "osDisk": {
+      "caching": "ReadWrite",
+      "createOption": "fromImage",
+      "diskSizeGb": null,
+      "encryptionSettings": null,
+      "image": {
+        "uri": "https://ubuntuworkstore.blob.core.windows.net/ubuntuworkcont/Centos-work20170128192628.vhd"
       },
-      {
-        "code": "PowerState/running",
-        "level": "Info",
-        "displayStatus": "VM running"
+      "managedDisk": null,
+      "name": "osdisk_7s1xcauOXC",
+      "osType": "Linux",
+      "vhd": {
+        "uri": "https://ubuntuworkstore.blob.core.windows.net/vhds/osdisk_7s1xcauOXC.vhd"
       }
-    ]
+    }
   },
-  "vmId": "7892a881-92c9-452c-b346-0c4bb0bd25f4"
+  "tags": {},
+  "type": "Microsoft.Compute/virtualMachines",
+  "vmId": "12370db4-2cbf-4ca6-91a2-336b459423ff"
 }
